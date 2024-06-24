@@ -1,5 +1,4 @@
-use tokenizers::models::bpe::{Vocab, BPE};
-use tokenizers::Tokenizer;
+use tokenizers::{Tokenizer};
 use wasm_bindgen::prelude::*;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -17,36 +16,35 @@ pub fn start() -> Result<(), JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn tokenize(string: &str) -> Vec<u32> {
-    let vocab: Vocab = vec![
-        ("a".to_string(), 0),
-        ("##b".to_string(), 1),
-        ("##c".to_string(), 2),
-        ("ab".to_string(), 3),
-        ("abc".to_string(), 4),
-    ]
-        .into_iter()
-        .collect();
+pub struct TokenizerWrapper {
+    tokenizer: Tokenizer,
+}
 
-    let merges = vec![
-        ("a".to_string(), "##b".to_string()),
-        ("ab".to_string(), "##c".to_string()),
-    ];
+#[wasm_bindgen]
+impl TokenizerWrapper {
+    pub fn get_vocab_size(&self) -> usize {
+        self.tokenizer.get_vocab_size(true)
+    }
 
-    let bpe = BPE::builder()
-        .vocab_and_merges(vocab, merges)
-        .unk_token("[UNK]".to_string())
-        .continuing_subword_prefix("##".to_string())
-        .build()
-        .unwrap();
-    let tokenizer = Tokenizer::new(bpe);
-    tokenizer
-        .encode(string, false)
-        .unwrap()
-        .get_ids()
-        .into_iter()
-        .cloned()
-        .collect()
+    pub fn get_vocab(&self) -> JsValue {
+        let vocab = self.tokenizer.get_vocab(true);
+        serde_wasm_bindgen::to_value(&vocab).unwrap()
+    }
+
+    pub fn encode(&self, string: &str) -> Vec<u32> {
+        self.tokenizer.encode(string, false).unwrap().get_ids().into_iter().cloned().collect()
+    }
+
+    pub fn decode(&self, ids: Vec<u32>) -> String {
+        self.tokenizer.decode(&ids, false).unwrap()
+    }
+
+    #[wasm_bindgen]
+    pub fn from(tokenizer_json: &str) -> TokenizerWrapper {
+        TokenizerWrapper {
+            tokenizer: tokenizer_json.parse::<Tokenizer>().unwrap(),
+        }
+    }
 }
 
 #[cfg(test)]
