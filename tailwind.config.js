@@ -6,18 +6,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // flowbite-svelte
         primary: {
-          50: '#FFF5F2',
-          100: '#FFF1EE',
-          200: '#FFE4DE',
-          300: '#FFD5CC',
-          400: '#FFBCAD',
-          500: '#FE795D',
-          600: '#EF562F',
-          700: '#EB4F27',
-          800: '#CC4522',
-          900: '#A5371B'
+          "50": "rgb(var(--color-primary-50) / <alpha-value>)",
+          "100": "rgb(var(--color-primary-100) / <alpha-value>)",
+          "200": "rgb(var(--color-primary-200) / <alpha-value>)",
+          "300": "rgb(var(--color-primary-300) / <alpha-value>)",
+          "400": "rgb(var(--color-primary-400) / <alpha-value>)",
+          "500": "rgb(var(--color-primary-500) / <alpha-value>)",
+          "600": "rgb(var(--color-primary-600) / <alpha-value>)",
+          "700": "rgb(var(--color-primary-700) / <alpha-value>)",
+          "800": "rgb(var(--color-primary-800) / <alpha-value>)",
+          "900": "rgb(var(--color-primary-900) / <alpha-value>)"
         }
       }
     }

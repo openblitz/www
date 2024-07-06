@@ -31,8 +31,9 @@ impl TokenizerWrapper {
         serde_wasm_bindgen::to_value(&vocab).unwrap()
     }
 
-    pub fn encode(&self, string: &str) -> Vec<u32> {
-        self.tokenizer.encode(string, false).unwrap().get_ids().into_iter().cloned().collect()
+    pub fn encode(&self, string: &str) -> JsValue {
+        let encoding = self.tokenizer.encode(string, false).unwrap();
+        serde_wasm_bindgen::to_value(&encoding).unwrap()
     }
 
     pub fn decode(&self, ids: Vec<u32>) -> String {

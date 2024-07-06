@@ -40,13 +40,20 @@
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.0.0-alpha.20",
 		"vite": "^5.0.3",
+		"vite-plugin-comlink": "^5.0.1",
 		"vitest": "^1.2.0"
 	},
 	"type": "module",
 	"dependencies": {
+		"comlink": "^4.4.1",
 		"flowbite": "^2.3.0",
 		"flowbite-svelte": "^0.46.5",
 		"flowbite-svelte-icons": "^1.6.1",
 		"svelte-add": "^2.2.1"
+	},
+	"pnpm": {
+		"patchedDependencies": {
+			"vite-plugin-comlink@5.0.1": "patches/vite-plugin-comlink@5.0.1.patch"
+		}
 	}
 }

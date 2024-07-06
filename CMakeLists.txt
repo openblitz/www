@@ -5,10 +5,10 @@ add_custom_target(libwww ALL
   COMMAND ${CMAKE_COMMAND} -E echo "Building WebAssembly module..."
   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_SOURCE_DIR}/www wasm-pack build --dev --target web
   COMMAND ${CMAKE_COMMAND} -E echo "Copying wasm module to static directory..."
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www.js ${CMAKE_SOURCE_DIR}/src/lib/
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www.d.ts ${CMAKE_SOURCE_DIR}/src/lib/
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www_bg.wasm ${CMAKE_SOURCE_DIR}/static/
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www_bg.wasm.d.ts ${CMAKE_SOURCE_DIR}/src/lib/
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www.js ${CMAKE_SOURCE_DIR}/src/worker/
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www.d.ts ${CMAKE_SOURCE_DIR}/src/worker/
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www_bg.wasm ${CMAKE_SOURCE_DIR}/src/worker/
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/www/pkg/www_bg.wasm.d.ts ${CMAKE_SOURCE_DIR}/src/worker/
 )
 
 add_custom_target(www ALL
