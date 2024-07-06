@@ -4,23 +4,26 @@
 	import { worker, inited, REPOS, REPOS_CATEGORIZED, queue, type Encoding } from '$lib';
 	import { onMount } from 'svelte';
 
-	let content = "";
+	let content: string | null = null;
 	let dropdownOpen = false;
-	let tokenizerRepoId: string | null = null;
+	let repoId: string | null = null;
 	let slices: number[][] = []
 
 	onMount(() => {
-		tokenizerRepoId = REPOS[1];
+		if (typeof localStorage !== 'undefined') {
+			content = localStorage.getItem('tokenizer:content') || "";
+			repoId = localStorage.getItem('tokenizer:repoId') || REPOS[0];
+		}
 	});
 
 	function onClickTokenizer(event: MouseEvent) {
 		dropdownOpen = false;
-		tokenizerRepoId = (event.target as HTMLElement).textContent;
+		repoId = (event.target as HTMLElement).textContent;
 	}
 
 	$: {
-		if (tokenizerRepoId) {
-			worker.make('tokenizer', tokenizerRepoId).then((t) => {
+		if (typeof worker !== 'undefined' && repoId) {
+			worker.make('tokenizer', repoId).then((t) => {
 				console.log(t)
 			});
 			// getWorker().Tokenizer.from(tokenizerRepoId).then((t) => {
@@ -30,7 +33,7 @@
 	}
 
 	function tokenize(repoId: string, content: string) {
-		if (!repoId) return;
+		if (!worker) return;
 
 		queue('tokenizer', () => worker.encode(repoId, content)).then(function({ offsets, ...encoding }) {
 		  let _slices = new Array(offsets.length);
@@ -50,7 +53,16 @@
 		});
 	}
 
-	$: tokenizerRepoId && tokenize(tokenizerRepoId, content)
+	$: {
+		if (typeof content === 'string' && typeof repoId === 'string') {
+			tokenize(repoId, content);
+
+			if (typeof localStorage !== 'undefined') {
+				localStorage.setItem('tokenizer:content', content);
+				localStorage.setItem('tokenizer:repoId', repoId);
+			}
+		}
+	}
 </script>
 
 <main class="flex flex-col gap-8 max-w-6xl mx-auto p-12">
@@ -58,7 +70,7 @@
 		<h1 class="font-bold text-4xl text-primary-900 tracking-tighter">Tokenizer</h1>
 		<div>
 			<Button class="border-zinc-300 hover:bg-zinc-100 hover:text-primary-900 focus-within:ring-0 min-w-[20rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
-				<span class="text-bold">{tokenizerRepoId}</span>
+				<span class="text-bold">{#if repoId}{repoId}{/if}</span>
 				<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
 			</Button>
 			<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2">
@@ -77,14 +89,11 @@
 		<div class="basis-0 grow">
 			<textarea class="box-border font-mono h-full rounded-md p-2 text-sm w-full" bind:value={content} rows="10" cols="50" placeholder="Type here..." />
 		</div>
-		<div class="basis-0 grow">
-		  <pre class="border-[1px] bg-zinc-100 min-h-full h-full min-w-full w-full rounded-md text-sm whitespace-pre-wrap">{#each slices as slice}<span class="token">{content.slice(slice[0], slice[1])}</span>{/each}</pre>
+		<div class="basis-0 flex flex-col grow">
+		  <pre class="border-[1px] bg-zinc-100 min-h-full h-full min-w-full w-full rounded-md text-sm whitespace-pre-wrap">{#each slices as slice}<span class="token">{content?.slice(slice[0], slice[1])}</span>{/each}</pre>
 		</div>
 	</div>
 
-	<section>
-	<p>Text length: {content.length} characters</p>
-	</section>
 	<p>Made with love by <a class="underline" href="https://shukantpal.com" target="_blank">Shukant Pal</a></p>
 </main>
 
