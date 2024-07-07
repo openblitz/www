@@ -76,7 +76,7 @@
 		<section class="flex items-center justify-between mb-2">
 			<h1 class="font-bold text-4xl text-primary-900 tracking-tighter">Tokenizer</h1>
 			<div>
-				<Button class="border-zinc-300 hover:bg-zinc-50 hover:text-primary-900 focus-within:ring-0 min-w-[20rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
+				<Button class="override hover:bg-slate-50/85 hover:text-primary-900 focus-within:ring-0 min-w-[22rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
 					<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
 					<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
 				</Button>
@@ -98,20 +98,20 @@
 		</div>
 		<div class="basis-0 flex flex-col grow gap-4">
 			<div class="flex gap-4">
-				<section class="border-[1px] bg-zinc-50 flex flex-col grow h-20 rounded-lg p-4">
+				<section class="border-[1px] bg-slate-50/85 flex flex-col grow h-20 rounded-lg p-4">
 					<p class="text-gray-500 text-sm">Token count</p>
 					<section class="flex flex-col grow justify-center">
 						<h4 class="font-medium">{slices.length}</h4>
 					</section>
 				</section>
-				<section class="border-[1px] bg-zinc-50 flex flex-col grow h-20 rounded-lg p-4">
+				<section class="border-[1px] bg-slate-50/85 flex flex-col grow h-20 rounded-lg p-4">
 					<p class="text-gray-500 text-sm">Character count</p>
 					<section class="flex flex-col grow justify-center">
 						<h4 class="font-medium">{content?.length || 0}</h4>
 					</section>
 				</section>
 			</div>
-		  <pre class="border-[1px] bg-zinc-50 min-h-full h-full min-w-full w-full rounded-md p-4 whitespace-pre-wrap">{#each slices as slice}<span class="token">{content?.slice(slice[0], slice[1])}</span>{/each}</pre>
+		  <pre class="border-[1px] bg-slate-50/85 min-h-full h-full min-w-full w-full rounded-md p-4 whitespace-pre-wrap">{#each slices as slice}<span class="token">{content?.slice(slice[0], slice[1])}</span>{/each}</pre>
 		</div>
 	</div>
 </main>

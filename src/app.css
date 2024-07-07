@@ -4,16 +4,16 @@
 
 @layer base {
     :root {
-        --color-primary-50: #fafafa;
-        --color-primary-100: #f4f4f5;
-        --color-primary-200: #e4e4e7;
-        --color-primary-300: #d4d4d8;
-        --color-primary-400: #a1a1aa;
-        --color-primary-500: #71717a;
-        --color-primary-600: #52525b;
-        --color-primary-700: #3f3f46;
-        --color-primary-800: #27272a;
-        --color-primary-900: #18181b;
+        --color-primary-50: #f8fafc;
+        --color-primary-100: #f1f5f9;
+        --color-primary-200: #e2e8f0;
+        --color-primary-300: #cbd5e1;
+        --color-primary-400: #94a3b8;
+        --color-primary-500: #64748b;
+        --color-primary-600: #475569;
+        --color-primary-700: #334155;
+        --color-primary-800: #1e293b;
+        --color-primary-900: #020617;
 
         --color-zinc-50: #fafafa;
         --color-zinc-100: #f4f4f5;
@@ -68,8 +68,8 @@ body {
     box-sizing: border-box;
 }
 
-*, textarea {
-    border-color: var(--color-zinc-300);
+*, textarea, .override {
+    border-color: rgba(212, 212, 216, .34);
     transition: background-color 0.3s ease-out;
 }
 
