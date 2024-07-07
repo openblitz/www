@@ -1,13 +1,14 @@
 <script lang="ts">
-	import { Button, Dropdown, DropdownItem, DropdownDivider, DropdownHeader } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem, Spinner } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
-	import { worker, inited, REPOS, REPOS_CATEGORIZED, queue, type Encoding } from '$lib';
+	import { worker, REPOS, REPOS_CATEGORIZED, queue } from '$lib';
 	import { onMount } from 'svelte';
 
 	let content: string | null = null;
 	let dropdownOpen = false;
+	let loading = true;
 	let repoId: string | null = null;
-	let slices: number[][] = []
+	let slices: number[][] = [];
 
 	onMount(() => {
 		if (typeof localStorage !== 'undefined') {
@@ -21,14 +22,19 @@
 		repoId = (event.target as HTMLElement).textContent;
 	}
 
+	function markLoading() {
+		loading = true;
+	}
+	function markLoaded() {
+		loading = false;
+	}
+
 	$: {
 		if (typeof worker !== 'undefined' && repoId) {
-			worker.make('tokenizer', repoId).then((t) => {
-				console.log(t)
+			markLoading();
+			worker.make('tokenizer', repoId).finally(() => {
+				markLoaded();
 			});
-			// getWorker().Tokenizer.from(tokenizerRepoId).then((t) => {
-			// 	tokenizer = t;
-			// });
 		}
 	}
 
@@ -70,7 +76,7 @@
 		<h1 class="font-bold text-4xl text-primary-900 tracking-tighter">Tokenizer</h1>
 		<div>
 			<Button class="border-zinc-300 hover:bg-zinc-100 hover:text-primary-900 focus-within:ring-0 min-w-[20rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
-				<span class="text-bold">{#if repoId}{repoId}{/if}</span>
+				<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
 				<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
 			</Button>
 			<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2">
