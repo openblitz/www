@@ -71,28 +71,28 @@
 	}
 </script>
 
-<main class="flex flex-col gap-8 max-w-6xl mx-auto p-12">
-	<div>
-		<section class="flex items-center justify-between mb-2">
+<main class="flex flex-col gap-4 max-w-6xl mx-auto p-8 md:p-12">
+	<section class="flex flex-col md:flex-row md:items-start gap-4 justify-between md:mb-2">
+		<section class="flex flex-col gap-2">
 			<h1 class="font-bold text-4xl text-primary-900 tracking-tighter">Tokenizer</h1>
-			<div>
-				<Button class="override hover:bg-slate-50/85 hover:text-primary-900 focus-within:ring-0 min-w-[22rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
-					<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
-					<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
-				</Button>
-				<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2">
-					{#each Object.entries(REPOS_CATEGORIZED) as entry}
-						<div class="mb-2 mt-6 first-of-type:mt-4 px-2 font-bold text-sm">{entry[0]}</div>
-						{#each entry[1] as repo}
-							<DropdownItem defaultClass="rounded-lg py-2 px-2 font-medium text-sm hover:bg-zinc-50 dark:hover:bg-gray-600" on:click={onClickTokenizer}>{repo}</DropdownItem>
-						{/each}
-					{/each}
-				</Dropdown>
-			</div>
+			<p class="ml-0.5 text-gray-500">Made with love by <a class="underline" href="https://shukantpal.com" target="_blank">Shukant Pal</a></p>
 		</section>
-		<p class="text-gray-500">Made with love by <a class="underline" href="https://shukantpal.com" target="_blank">Shukant Pal</a></p>
-	</div>
-	<div class="flex justify-between gap-4 min-h-[30rem] w-full">
+		<div>
+			<Button class="override hover:bg-slate-50/85 hover:text-primary-900 focus-within:ring-0 sm:min-w-[22rem] justify-between py-1.5 pl-3 pr-1 mt-1 w-full md:w-fit" outline>
+				<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
+				<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
+			</Button>
+			<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2 min-w-[22rem] w-[calc(100%-4rem)] md:w-fit">
+				{#each Object.entries(REPOS_CATEGORIZED) as entry}
+					<div class="mb-2 mt-6 first-of-type:mt-4 px-2 font-bold text-sm">{entry[0]}</div>
+					{#each entry[1] as repo}
+						<DropdownItem defaultClass="rounded-lg py-2 px-2 font-medium text-sm hover:bg-zinc-50 dark:hover:bg-gray-600" on:click={onClickTokenizer}>{repo}</DropdownItem>
+					{/each}
+				{/each}
+			</Dropdown>
+		</div>
+	</section>
+	<div class="flex flex-col lg:flex-row justify-between gap-4 md:min-h-[30rem] w-full">
 		<div class="basis-0 grow">
 			<textarea class="box-border font-mono h-full rounded-md p-4 w-full" bind:value={content} rows="10" cols="50" placeholder="Type here..." />
 		</div>
