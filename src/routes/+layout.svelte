@@ -1,3 +1,6 @@
+<svelte:head>
+	<title>Tokenizer</title>
+</svelte:head>
 <script>
 	import { inited, worker } from '$lib';
 	import { onMount } from 'svelte';
