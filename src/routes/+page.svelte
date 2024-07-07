@@ -72,35 +72,48 @@
 </script>
 
 <main class="flex flex-col gap-8 max-w-6xl mx-auto p-12">
-	<section class="flex items-center justify-between">
-		<h1 class="font-bold text-4xl text-primary-900 tracking-tighter">Tokenizer</h1>
-		<div>
-			<Button class="border-zinc-300 hover:bg-zinc-100 hover:text-primary-900 focus-within:ring-0 min-w-[20rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
-				<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
-				<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
-			</Button>
-			<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2">
-				{#each Object.entries(REPOS_CATEGORIZED) as entry}
-					<div class="mb-2 mt-6 first-of-type:mt-4 px-2 font-bold text-sm">{entry[0]}</div>
-					{#each entry[1] as repo}
-						<DropdownItem defaultClass="rounded-lg py-2 px-2 font-medium text-sm hover:bg-zinc-100 dark:hover:bg-gray-600" on:click={onClickTokenizer}>{repo}</DropdownItem>
+	<div>
+		<section class="flex items-center justify-between mb-2">
+			<h1 class="font-bold text-4xl text-primary-900 tracking-tighter">Tokenizer</h1>
+			<div>
+				<Button class="border-zinc-300 hover:bg-zinc-50 hover:text-primary-900 focus-within:ring-0 min-w-[20rem] justify-between py-1.5 pl-3 pr-1 w-fit" outline>
+					<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
+					<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
+				</Button>
+				<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2">
+					{#each Object.entries(REPOS_CATEGORIZED) as entry}
+						<div class="mb-2 mt-6 first-of-type:mt-4 px-2 font-bold text-sm">{entry[0]}</div>
+						{#each entry[1] as repo}
+							<DropdownItem defaultClass="rounded-lg py-2 px-2 font-medium text-sm hover:bg-zinc-50 dark:hover:bg-gray-600" on:click={onClickTokenizer}>{repo}</DropdownItem>
+						{/each}
 					{/each}
-				{/each}
-			</Dropdown>
-		</div>
-	</section>
-	<p>👷🛠️ This is a work in progress</p>
-
+				</Dropdown>
+			</div>
+		</section>
+		<p class="text-gray-500">Made with love by <a class="underline" href="https://shukantpal.com" target="_blank">Shukant Pal</a></p>
+	</div>
 	<div class="flex justify-between gap-4 min-h-[30rem] w-full">
 		<div class="basis-0 grow">
-			<textarea class="box-border font-mono h-full rounded-md p-2 text-sm w-full" bind:value={content} rows="10" cols="50" placeholder="Type here..." />
+			<textarea class="box-border font-mono h-full rounded-md p-4 w-full" bind:value={content} rows="10" cols="50" placeholder="Type here..." />
 		</div>
-		<div class="basis-0 flex flex-col grow">
-		  <pre class="border-[1px] bg-zinc-100 min-h-full h-full min-w-full w-full rounded-md text-sm whitespace-pre-wrap">{#each slices as slice}<span class="token">{content?.slice(slice[0], slice[1])}</span>{/each}</pre>
+		<div class="basis-0 flex flex-col grow gap-4">
+			<div class="flex gap-4">
+				<section class="border-[1px] bg-zinc-50 flex flex-col grow h-20 rounded-lg p-4">
+					<p class="text-gray-500 text-sm">Token count</p>
+					<section class="flex flex-col grow justify-center">
+						<h4 class="font-medium">{slices.length}</h4>
+					</section>
+				</section>
+				<section class="border-[1px] bg-zinc-50 flex flex-col grow h-20 rounded-lg p-4">
+					<p class="text-gray-500 text-sm">Character count</p>
+					<section class="flex flex-col grow justify-center">
+						<h4 class="font-medium">{content?.length || 0}</h4>
+					</section>
+				</section>
+			</div>
+		  <pre class="border-[1px] bg-zinc-50 min-h-full h-full min-w-full w-full rounded-md p-4 whitespace-pre-wrap">{#each slices as slice}<span class="token">{content?.slice(slice[0], slice[1])}</span>{/each}</pre>
 		</div>
 	</div>
-
-	<p>Made with love by <a class="underline" href="https://shukantpal.com" target="_blank">Shukant Pal</a></p>
 </main>
 
 <style>
