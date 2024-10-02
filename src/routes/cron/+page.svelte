@@ -48,6 +48,16 @@
     }
 </style>
 
+<svelte:head>
+	<meta property="og:title" content="Cronformer" />
+	<meta property="og:type" content="website" />
+	<meta property="og:description" content="Convert English to Cron expressions, quickly." />
+	<meta property="og:image" content="https://openblitz.dev/logo.jpeg" />
+
+	<title>Blog | Article title</title>
+	<meta name="description" content="<short description>" />
+</svelte:head>
+
 <main class="flex flex-col gap-4 max-w-6xl mx-auto p-8 md:p-12">
 	<section class="flex flex-col md:flex-row md:items-start gap-4 justify-between md:mb-2">
 		<section class="flex flex-col gap-2">
