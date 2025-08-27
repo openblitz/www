@@ -8,7 +8,6 @@
 	import { page } from '$app/stores';
 
 	let content: string | null = null;
-	let dropdownOpen = false;
 	let loading = true;
 	let repoId: string | null = null;
 	let slices: number[][] = [];
@@ -21,7 +20,6 @@
 	});
 
 	function onClickTokenizer(event: MouseEvent) {
-		dropdownOpen = false;
 		repoId = (event.target as HTMLElement).textContent;
 	}
 
@@ -89,15 +87,15 @@
 			<div class="hidden md:block">
 				<ThemeToggle serverTheme={$page.data?.theme} />
 			</div>
-			<Button class="override hover:bg-slate-50/85 dark:hover:bg-slate-800/85 hover:text-primary-900 dark:hover:text-primary-100 focus-within:ring-0 sm:min-w-[22rem] justify-between py-1.5 pl-3 pr-1 mt-1 w-full md:w-fit" outline>
-				<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size={4} />{/if}</div>
+			<Button id="dropdown-trigger" class="override hover:bg-slate-50/85 dark:hover:bg-slate-800/85 hover:text-primary-900 dark:hover:text-primary-100 focus-within:ring-0 sm:min-w-[22rem] justify-between py-1.5 pl-3 pr-1 mt-1 w-full md:w-fit" outline>
+				<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size="4" />{/if}</div>
 				<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
 			</Button>
-			<Dropdown bind:open={dropdownOpen} activeClass="hover:text-primary-900 dark:hover:text-primary-900" classContainer="px-2 min-w-[22rem] w-[calc(100%-4rem)] md:w-fit">
+			<Dropdown simple class="px-2 min-w-[22rem] w-[calc(100%-4rem)] md:w-fit">
 				{#each Object.entries(REPOS_CATEGORIZED) as entry}
 					<div class="mb-2 mt-6 first-of-type:mt-4 px-2 font-bold text-sm">{entry[0]}</div>
 					{#each entry[1] as repo}
-						<DropdownItem defaultClass="rounded-lg py-2 px-2 font-medium text-sm hover:bg-zinc-50 dark:hover:bg-gray-600" on:click={onClickTokenizer}>{repo}</DropdownItem>
+						<DropdownItem class="rounded-lg py-2 px-2 font-medium text-sm hover:bg-zinc-50 dark:hover:bg-gray-600 text-start w-full" onclick={onClickTokenizer}>{repo}</DropdownItem>
 					{/each}
 				{/each}
 			</Dropdown>
@@ -105,7 +103,7 @@
 	</section>
 	<div class="flex flex-col lg:flex-row justify-between gap-4 md:min-h-[30rem] w-full">
 		<div class="basis-0 grow">
-			<textarea class="box-border font-mono h-full rounded-md p-4 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent" bind:value={content} rows="10" cols="50" placeholder="Type here..." />
+			<textarea class="box-border font-mono h-full rounded-md p-4 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent" bind:value={content} rows="10" cols="50" placeholder="Type here..."></textarea>
 		</div>
 		<div class="basis-0 flex flex-col grow gap-4">
 			<div class="flex gap-4">

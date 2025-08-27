@@ -39,7 +39,7 @@ test.describe('Tokenizer Page', () => {
     await page.waitForTimeout(2000);
 
     // Open the dropdown by clicking the button
-    const dropdownButton = page.locator('button').first();
+    const dropdownButton = page.locator('#dropdown-trigger');
     await dropdownButton.click();
     
     // Wait for dropdown to appear
@@ -88,7 +88,7 @@ test.describe('Tokenizer Advanced Features', () => {
     const initialTokenCount = await page.locator('section:has-text("Token count") h4').textContent();
     
     // Try to change repository if dropdown is available
-    const dropdownButton = page.locator('button').first();
+    const dropdownButton = page.locator('#dropdown-trigger');
     await dropdownButton.click();
     await page.waitForTimeout(500);
     
