@@ -1,14 +1,27 @@
-<svelte:head>
-	<title>Tokenizer</title>
-</svelte:head>
 <script>
 	import { inited, worker } from '$lib';
+	import { themeStore } from '$lib/stores';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	import '../app.css';
 
 	onMount(() => {
-			inited.set(true);
+		inited.set(true);
+		
+		// Get the theme from server data if available
+		const serverTheme = $page.data?.theme;
+		if (serverTheme) {
+			// Sync client store with server state
+			themeStore.set(serverTheme);
+		} else {
+			// Fallback to client-side init
+			themeStore.init();
+		}
 	});
 </script>
+
+<svelte:head>
+	<title>Tokenizer</title>
+</svelte:head>
 <slot></slot>
