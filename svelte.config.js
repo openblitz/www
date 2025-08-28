@@ -20,12 +20,13 @@ const config = {
 				exclude: ['<all>'],
 			},
 			platformProxy: {
-				configPath: 'wrangler.toml',
-				environment: undefined,
+				configPath:  'wrangler.jsonc',
+				environment: 'development',
 				experimentalJsonConfig: false,
-				persist: false,
-			}
-		})
+				persist: true,
+			},
+			fallback: 'plaintext',
+		}),
 	}
 };
 

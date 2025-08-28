@@ -1,0 +1,19 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "openblitz",
+	"main": ".svelte-kit/cloudflare/_worker.js",
+	"compatibility_date": "2025-08-28",
+	"compatibility_flags": [
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare",
+	},
+	"observability": {
+		"enabled": true
+	},
+	"env": {
+		"development": {},
+	}
+}

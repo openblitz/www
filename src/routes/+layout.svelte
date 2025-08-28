@@ -6,6 +6,8 @@
 
 	import '../app.css';
 
+	let { children } = $props();
+
 	onMount(() => {
 		inited.set(true);
 		
@@ -21,7 +23,4 @@
 	});
 </script>
 
-<svelte:head>
-	<title>Tokenizer</title>
-</svelte:head>
-<slot></slot>
+{@render children()}

@@ -25,14 +25,14 @@ function createThemeStore() {
 
   let mediaQuery: MediaQueryList | undefined;
 
-  function updateSystemTheme() {
-    if (browser && mediaQuery) {
-      isDarkMode.set(mediaQuery.matches);
-    }
-  }
-
   function updateDarkMode(preference: ThemePreference) {
     if (preference === 'system') {
+      function updateSystemTheme() {
+        if (browser && mediaQuery) {
+          isDarkMode.set(mediaQuery.matches);
+          applyThemeClass(mediaQuery.matches ? 'dark' : 'light');
+        }
+      }
       if (!mediaQuery && browser) {
         mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
         mediaQuery.addEventListener('change', updateSystemTheme);
@@ -54,8 +54,10 @@ function createThemeStore() {
       document.documentElement.classList.add('light');
     } else if (preference === 'dark') {
       document.documentElement.classList.add('dark');
+    } else {
+      // For 'system', add dark class based on media query preference
+      document.documentElement.classList.add(mediaQuery?.matches ? 'dark' : 'light');
     }
-    // For 'system', we rely on CSS @media (prefers-color-scheme)
   }
 
   return {

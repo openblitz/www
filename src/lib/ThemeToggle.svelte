@@ -44,10 +44,10 @@
 </script>
 
 <Button
-  on:click={cycleTheme}
-  class="override hover:bg-slate-50/85 dark:hover:bg-slate-800/85 hover:text-primary-900 dark:hover:text-primary-100 focus-within:ring-0 py-1.5 px-3 mt-1 h-10"
-  outline
-  size="sm"
+  onclick={cycleTheme}
+  class="override hover:bg-slate-50/85 dark:hover:bg-slate-800/85 hover:text-primary-900 dark:hover:text-primary-100 focus-within:ring-0 flex items-center justify-center"
+  color="alternative"
+  size="md"
   aria-label="Toggle theme (current: {getThemeLabel(currentTheme)})"
   title="Toggle theme (current: {getThemeLabel(currentTheme)})"
 >
