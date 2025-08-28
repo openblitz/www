@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@config "../tailwind.config.js";
+
 @layer base {
     :root {
         --color-primary-50: #f8fafc;

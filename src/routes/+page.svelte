@@ -72,6 +72,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Tokenizer</title>
+</svelte:head>
+
 <main class="flex flex-col gap-4 max-w-6xl mx-auto p-8 md:p-12">
 	<section class="flex flex-col md:flex-row md:items-start gap-4 justify-between md:mb-2">
 		<section class="flex flex-col gap-2">
@@ -83,12 +87,12 @@
 			</div>
 			<p class="ml-0.5 text-gray-500 dark:text-gray-400">Made with love by <a class="underline hover:text-primary-600 dark:hover:text-primary-400" href="https://shukantpal.com" target="_blank">Shukant Pal</a></p>
 		</section>
-		<div class="flex gap-2 items-start">
+		<div class="flex gap-2 items-center">
 			<div class="hidden md:block">
 				<ThemeToggle serverTheme={$page.data?.theme} />
 			</div>
-			<Button id="dropdown-trigger" class="override hover:bg-slate-50/85 dark:hover:bg-slate-800/85 hover:text-primary-900 dark:hover:text-primary-100 focus-within:ring-0 sm:min-w-[22rem] justify-between py-1.5 pl-3 pr-1 mt-1 w-full md:w-fit" outline>
-				<div class="flex gap-2 items-center text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size="4" />{/if}</div>
+			<Button id="dropdown-trigger" class="override hover:bg-slate-50/85 dark:hover:bg-slate-800/85 hover:text-primary-900 dark:hover:text-primary-100 focus-within:ring-0 sm:min-w-[22rem] justify-between py-1.5 pl-3 pr-1 w-full md:w-fit flex" outline>
+				<span class="flex items-center gap-2 text-start text-bold">{#if repoId}{repoId}{/if}{#if loading}<Spinner size="4" />{/if}</span>
 				<ChevronDownOutline class="text-gray-300 w-6 h-6 p-0 dark:text-white" />
 			</Button>
 			<Dropdown simple class="px-2 min-w-[22rem] w-[calc(100%-4rem)] md:w-fit">
